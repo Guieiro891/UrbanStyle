@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="../../../../../../../../Estudos/CSharp/UrbanStyle/UrbanStyle.API/UrbanStyle.API.csproj" Id="457653ec-0206-47a6-92f4-ee4e9e38d99e" />
+  <Project Path="../../../../../../../../Estudos/CSharp/UrbanStyle/UrbanStyle.Application/UrbanStyle.Application.csproj" Id="4213ec49-2478-4afa-aae9-365c086e9197" />
+  <Project Path="../../../../../../../../Estudos/CSharp/UrbanStyle/UrbanStyle.Domain/UrbanStyle.Domain.csproj" />
+  <Project Path="../../../../../../../../Estudos/CSharp/UrbanStyle/UrbanStyle.Infrastructure/UrbanStyle.Infrastructure.csproj" Id="59fcfb70-cade-432a-b9f7-f1e69e4ac938" />
+</Solution>
