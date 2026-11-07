@@ -12,7 +12,7 @@ builder.Services.AddControllers();
 builder.WebHost.UseUrls("http://0.0.0.0:5000");
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-builder.Services.AddScoped<ICategoriaRepository, CategoriaRepository>();
+builder.Services.AddScoped<ICategoriaRepository, CategoriaRepositorio>();
 builder.Services.AddScoped<ICategoriaService, CategoriaService>();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
