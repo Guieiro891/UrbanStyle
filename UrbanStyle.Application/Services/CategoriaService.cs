@@ -1,4 +1,6 @@
-﻿using UrbanStyle.Application.Interfaces;
+﻿using UrbanStyle.Application.DTOs.Categorias;
+using UrbanStyle.Application.Mappers;
+using UrbanStyle.Application.Interfaces;
 using UrbanStyle.Domain;
 
 namespace UrbanStyle.Application.Services;
@@ -11,24 +13,30 @@ public class CategoriaService : ICategoriaService
         _repository = repository;
     }
 
-    public async Task<List<Categoria>> Listar()
+    public async Task<List<CategoriaDto>> Listar()
     {
-        var lista = await _repository.Listar();
-        return lista;
+        var categorias = await _repository.Listar();
+        return categorias.Select(c => CategoriaMapper.ToDto(c)).ToList();
     }
 
-    public async Task<Categoria?> Buscar(int id)
+    public async Task<CategoriaDto?> Buscar(int id)
     {
-        return await _repository.Buscar(id);
+        var categoria = await _repository.Buscar(id);
+        return categoria == null ? null : CategoriaMapper.ToDto(categoria);
     }
     
-    public async Task<Categoria> Criar(Categoria categoria)
+    public async Task<CategoriaDto> Criar(CriarCategoriaDto dto)
     {
-        return await _repository.Criar(categoria);
+        var categoria = CategoriaMapper.ToEntity(dto);
+        var categoriaCriada = await _repository.Criar(categoria);
+        return CategoriaMapper.ToDto(categoriaCriada);
     }
 
-    public async Task Atualizar(Categoria categoria)
+    public async Task Atualizar(int id, AtualizarCategoriaDto dto)
     {
+        var categoria = await _repository.Buscar(id);
+        if (categoria == null) return;
+        categoria.Nome = dto.Nome;
         await _repository.Atualizar(categoria);
     }
 
