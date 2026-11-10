@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using UrbanStyle.Application.DTOs.Categorias;
 using UrbanStyle.Application.Interfaces;
-using UrbanStyle.Domain;
 
 namespace UrbanStyle.API.Controllers;
 
@@ -23,7 +23,7 @@ public class CategoriasController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<Categoria>> Buscar(int id)
+    public async Task<ActionResult<CategoriaDto>> Buscar(int id)
     {
         var categoria = await _service.Buscar(id);
         if (categoria == null)
@@ -33,21 +33,20 @@ public class CategoriasController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<ActionResult<Categoria>> Criar([FromBody] Categoria categoria)
+    public async Task<ActionResult<CategoriaDto>> Criar([FromBody] CriarCategoriaDto dto)
     {
-        var categoriaCriada = await _service.Criar(categoria);
+        var categoriaCriada = await _service.Criar(dto);
         return CreatedAtAction(nameof(Listar), new { id = categoriaCriada.Id }, categoriaCriada);
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> Atualizar(int id, [FromBody] Categoria categoria)
+    public async Task<IActionResult> Atualizar(int id, [FromBody] AtualizarCategoriaDto dto)
     {
         var categoriaExiste = await _service.Buscar(id);
         if (categoriaExiste == null)
             return NotFound();
 
-        categoriaExiste.Nome = categoria.Nome;
-        await _service.Atualizar(categoriaExiste);
+        await _service.Atualizar(id, dto);
 
         return NoContent();
     }
