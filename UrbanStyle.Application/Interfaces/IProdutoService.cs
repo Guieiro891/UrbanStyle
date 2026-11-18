@@ -1,4 +1,4 @@
-﻿using UrbanStyle.Application.DTOs.Produtos;
+﻿
 using UrbanStyle.Domain;
 
 namespace UrbanStyle.Application.Interfaces;
