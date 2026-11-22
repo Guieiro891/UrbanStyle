@@ -10,8 +10,4 @@
     <ProjectReference Include="..\UrbanStyle.Domain\UrbanStyle.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="DTOs\Produtos\" />
-  </ItemGroup>
-
 </Project>

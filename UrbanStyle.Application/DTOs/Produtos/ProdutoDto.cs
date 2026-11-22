@@ -1,0 +1,1 @@
+﻿public record ProdutoDto(int Id, string Nome, string Descricao, decimal Preco, string NomeCategoria);
