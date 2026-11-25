@@ -28,14 +28,14 @@ public class ProdutoRepository : IProdutoRepository
     public async Task<List<Produto>> Listar()
     {
         // Retornar a lista de produtos de forma assíncrona.
-        return await _context.Produtos.ToListAsync();
+        return await _context.Produtos.Include(p => p.Categoria).ToListAsync();
     }
 
     //O metodo buscar procura o Produto atraves do Id, assim torna a busca mais pratica
     public async Task<Produto?> Buscar(int id)
     {
 
-        return await _context.Produtos.FirstOrDefaultAsync(b => b.Id == id);
+        return await _context.Produtos.Include(p => p.Categoria).FirstOrDefaultAsync(p => p.Id == id);
     }
 
     public async Task<Produto> Criar(Produto produto)

@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using UrbanStyle.Application.Interfaces;
-using UrbanStyle.Domain;
-
+using UrbanStyle.Application.DTOs.Produtos;
 
 namespace UrbanStyle.API.Controllers;
 
@@ -25,7 +24,7 @@ public class ProdutosController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<Produto>> Buscar(int id)
+    public async Task<ActionResult<ProdutoDto>> Buscar(int id)
     {
         var buscarProdutos = await _service.Buscar(id);
         if (buscarProdutos == null)
@@ -34,25 +33,21 @@ public class ProdutosController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<ActionResult<Produto>> Criar([FromBody] Produto produto)
+    public async Task<ActionResult<ProdutoDto>> Criar([FromBody] CriarProdutoDto dto)
     {
-        var produtoCriado = await _service.Criar(produto);
+        var produtoCriado = await _service.Criar(dto);
         return CreatedAtAction(nameof(Listar), new { id = produtoCriado.Id }, produtoCriado);
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> Atualizar(int id, [FromBody] Produto produto)
+    public async Task<IActionResult> Atualizar(int id, [FromBody] AtualizarProdutoDto dto)
     {
         var produtoAtualizar = await _service.Buscar(id);
         if (produtoAtualizar == null)
             return NotFound();
         
-        produtoAtualizar.Nome = produto.Nome;
-        produtoAtualizar.Descricao = produto.Descricao;
-        produtoAtualizar.Preco = produto.Preco;
-        produtoAtualizar.CategoriaId = produto.CategoriaId;
 
-        await _service.Atualizar(produtoAtualizar);
+        await _service.Atualizar(id, dto);
         return NoContent();
     }
 
